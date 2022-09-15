@@ -1,25 +1,37 @@
-import * as express from 'express';
-import type { Application } from 'express';
-import * as morgan from 'morgan';
+import express, { Application } from 'express';
+import session, { SessionOptions } from 'express-session';
+import fileStore from 'session-file-store';
+import morgan from 'morgan';
 
-// import { PORT, NODE_ENV } from './config';
+import * as ENV from './config';
 import * as router from './routes';
 import sequelize from './sequelize';
 
+const FileStore = fileStore(session);
+
 class Server {
-  public app: Application;
+  private app: Application;
   private prod: boolean;
+  private sessionMiddleware;
 
   constructor() {
     const app: Application = express();
-    // const prod = NODE_ENV === 'production';
-    const prod = false;
+    const prod = ENV.NODE_ENV === 'production';
+    const sessionOptions: SessionOptions = {
+      secret: ENV.SESSION_SECRET_KEY as string,
+      saveUninitialized: true,
+      cookie: { secure: false },
+      resave: false,
+      store: new FileStore(),
+    };
+
     this.app = app;
     this.prod = prod;
+    this.sessionMiddleware = session(sessionOptions);
   }
 
   private setApp() {
-    this.app.set('port', this.prod ? 8000 : 8000);
+    this.app.set('port', this.prod ? ENV.PORT : '8000');
     sequelize.sync({ force: true });
   }
 
@@ -33,13 +45,16 @@ class Server {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(this.prod ? morgan('combined') : morgan('dev'));
+    this.app.use(this.sessionMiddleware);
     this.setRoute();
   }
 
   public listen() {
     this.setApp();
     this.setMiddleware();
-    this.app.listen(8000, () => console.log(`start to server: http://localhost:${8000}/`));
+    this.app.listen(this.app.get('port'), () =>
+      console.log(`start to server: http://localhost:${this.app.get('port')}/`),
+    );
   }
 }
 
