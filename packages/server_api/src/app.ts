@@ -4,6 +4,7 @@ import * as morgan from 'morgan';
 
 // import { PORT, NODE_ENV } from './config';
 import * as router from './routes';
+import sequelize from './sequelize';
 
 class Server {
   public app: Application;
@@ -17,24 +18,26 @@ class Server {
     this.prod = prod;
   }
 
-  private set() {
+  private setApp() {
     this.app.set('port', this.prod ? 8000 : 8000);
+    sequelize.sync({ force: true });
   }
 
   private setRoute() {
-    this.app.use(router.chat);
-    this.app.use(router.room);
-    this.app.use(router.user);
+    this.app.use('/chat', router.chat);
+    this.app.use('/room', router.room);
+    this.app.use('/user', router.user);
   }
 
   private setMiddleware() {
     this.app.use(express.json());
+    this.app.use(express.urlencoded({ extended: true }));
     this.app.use(this.prod ? morgan('combined') : morgan('dev'));
     this.setRoute();
   }
 
   public listen() {
-    this.set();
+    this.setApp();
     this.setMiddleware();
     this.app.listen(8000, () => console.log(`start to server: http://localhost:${8000}/`));
   }
