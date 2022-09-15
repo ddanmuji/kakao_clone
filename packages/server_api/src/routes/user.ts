@@ -19,9 +19,8 @@ router.get('/', async (req, res) => {
 
 router.get('/me', async (req, res) => {
   try {
-    const { username, userId, isLogged } = req.session;
-
-    return res.json({ username, userId, isLogged });
+    const { isLogged, userId, userName } = req.session;
+    return res.json({ isLogged, userId, userName });
   } catch (error) {
     return res.json({ message: 'error' });
   }
@@ -33,13 +32,12 @@ router.post('/login', async (req, res) => {
     const username = req.body.username;
     const user = await User.create({ id: userId, username });
 
-    req.session.username = username;
+    req.session.userName = username;
     req.session.userId = userId;
     req.session.isLogged = true;
+    req.session.save();
 
-    await req.session.save();
-
-    return res.json({ statusText: 'OK', data: user });
+    return res.json({ message: 'success', data: user });
   } catch (error) {
     return res.json({ message: 'error' });
   }
@@ -47,8 +45,10 @@ router.post('/login', async (req, res) => {
 
 router.post('/logout', async (req, res) => {
   try {
-    delete req.session.user;
-    await req.session.save();
+    delete req.session.userId;
+    delete req.session.userName;
+    req.session.isLogged = false;
+    req.session.save();
 
     return res.redirect('/');
   } catch (error) {

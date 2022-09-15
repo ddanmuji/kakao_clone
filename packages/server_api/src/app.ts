@@ -1,4 +1,4 @@
-import express, { Application } from 'express';
+import express, { Application, RequestHandler } from 'express';
 import session, { SessionOptions } from 'express-session';
 import fileStore from 'session-file-store';
 import morgan from 'morgan';
@@ -12,7 +12,7 @@ const FileStore = fileStore(session);
 class Server {
   private app: Application;
   private prod: boolean;
-  private sessionMiddleware;
+  private sessionMiddleware: RequestHandler;
 
   constructor() {
     const app: Application = express();

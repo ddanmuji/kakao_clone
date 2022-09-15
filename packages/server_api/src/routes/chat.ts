@@ -16,7 +16,7 @@ router.get('/:roomId', async (req, res) => {
   }
 });
 
-router.post('/:rootId', async (req, res) => {
+router.post('/:roomId', async (req, res) => {
   try {
     const chat = await Chat.create({
       senderId: req.session.userId,
