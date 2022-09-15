@@ -1,0 +1,49 @@
+{
+  "name": "@kakao_clone/repo",
+  "version": "1.0.0",
+  "repository": "https://github.com/ddanmuji/kakao_clone",
+  "author": "여찬규 <cgyeo5533@gmail.com>",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": []
+  },
+  "lint-staged": {
+    "**/*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "scripts": {
+    "dev:app": "yarn workspace @slack/web_client dev",
+    "dev:api": "yarn workspace @slack/server_api start:dev",
+    "build:app": "yarn workspace @slack/web_client build",
+    "build:api": "yarn workspace @slack/server_api build",
+    "prepare": "husky install",
+    "commit": "git add . && yarn git-cz",
+    "clean": "yarn clean:dist && yarn clean:modules",
+    "clean:dist": "bash ./scripts/clean-dist.sh",
+    "clean:modules": "bash ./scripts/clean-modules.sh"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
+    "@typescript-eslint/eslint-plugin": "^5.30.6",
+    "@typescript-eslint/parser": "^5.30.6",
+    "commitizen": "^4.2.4",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^8.20.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1"
+  }
+}

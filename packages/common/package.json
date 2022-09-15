@@ -1,0 +1,8 @@
+{
+  "name": "@kakao_clone/common",
+  "version": "1.0.0",
+  "repository": "https://github.com/ddanmuji/kakao_clone",
+  "author": "여찬규 <cgyeo5533@gmail.com>",
+  "private": true,
+  "main": "index.ts"
+}
