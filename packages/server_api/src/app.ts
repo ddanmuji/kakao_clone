@@ -3,6 +3,7 @@ import type { Application } from 'express';
 import * as morgan from 'morgan';
 
 // import { PORT, NODE_ENV } from './config';
+import * as router from './routes';
 
 class Server {
   public app: Application;
@@ -21,9 +22,9 @@ class Server {
   }
 
   private setRoute() {
-    // const userRouter = '';
-    // this.app.use(userRouter);
-    console.log('test');
+    this.app.use(router.chat);
+    this.app.use(router.room);
+    this.app.use(router.user);
   }
 
   private setMiddleware() {
