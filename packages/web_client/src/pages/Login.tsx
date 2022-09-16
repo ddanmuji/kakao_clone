@@ -1,5 +1,7 @@
+import { AppLayout } from '../layouts';
+
 const Login = () => {
-  return <div>Login</div>;
+  return <AppLayout title="Jebong">Login</AppLayout>;
 };
 
 export default Login;

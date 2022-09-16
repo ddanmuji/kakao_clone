@@ -1,5 +1,7 @@
+import { AppLayout } from '../layouts';
+
 const Friends = () => {
-  return <div>Friends</div>;
+  return <AppLayout title="Jebong">Friends</AppLayout>;
 };
 
 export default Friends;

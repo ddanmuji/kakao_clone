@@ -1,5 +1,7 @@
+import { AppLayout } from '../layouts';
+
 const RoomDetail = () => {
-  return <div>RoomDetail</div>;
+  return <AppLayout title="Jebong">RoomDetail</AppLayout>;
 };
 
 export default RoomDetail;

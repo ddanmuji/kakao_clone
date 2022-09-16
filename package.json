@@ -26,7 +26,7 @@
     "build:app": "yarn workspace @slack/web_client build",
     "build:api": "yarn workspace @slack/server_api build",
     "prepare": "husky install",
-    "commit": "git add . && yarn git-cz",
+    "commit": "yarn git-cz",
     "clean": "yarn clean:dist && yarn clean:modules",
     "clean:dist": "bash ./scripts/clean-dist.sh",
     "clean:modules": "bash ./scripts/clean-modules.sh"
