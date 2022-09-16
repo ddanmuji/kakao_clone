@@ -1,7 +1,0 @@
-{
-  "name": "@kakao_clone/common",
-  "version": "1.0.0",
-  "author": "여찬규 <cgyeo5533@gmail.com>",
-  "private": true,
-  "main": "index.ts"
-}

@@ -7,8 +7,7 @@
   "workspaces": {
     "packages": [
       "packages/*"
-    ],
-    "nohoist": []
+    ]
   },
   "lint-staged": {
     "**/*.{ts,tsx}": [
