@@ -4,7 +4,7 @@ interface User {
   username: string;
 }
 
-export const login = (body: User) => instance.post('/user/login', body);
-export const logout = () => instance.post('/user/logout');
-export const fetchUserList = () => instance.get('/user');
-export const fetchMyProfile = () => instance.get('/user/me');
+export const login = (body: User) => instance.post('/login', body);
+export const logout = () => instance.post('/logout');
+export const fetchUserList = () => instance.get('/');
+export const fetchMyProfile = () => instance.get('/me');

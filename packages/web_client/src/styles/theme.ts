@@ -12,8 +12,9 @@ const fontSizes = {
 } as const;
 
 const colors = {
-  primary: '#ffe713',
-  white: '#fff',
+  primary: '#FFE713',
+  secondary: '#3D1D1C',
+  white: '#FFFFFF',
   gray: {
     50: '#F9FAFB',
     100: '#F3F4F6',
